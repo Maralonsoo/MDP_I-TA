@@ -3,3 +3,11 @@ title: "Scrpit"
 output: html_document
 ---
 
+```{r}
+datos = read.table("01A_AlzheimerDisease.txt")
+#Lectura de datos para nuestra tabla en .txt
+
+
+
+```
+
