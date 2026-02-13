@@ -1,0 +1,18 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+````{R carga}
+DF = read.table("01A_AlzheimerDisease.txt", header = TRUE, sep = "\t", dec = ".", check.names = FALSE)
+
+````
+
+````{R variables}
+tabla_variables = data.frame(variable = colnames(DF), tipo= c(
+  rep("numerical", 14),
+  "integer",
+  rep("numerical", 12),
+  "char",
+  "numerical",
+  rep("char",2)))
+````
