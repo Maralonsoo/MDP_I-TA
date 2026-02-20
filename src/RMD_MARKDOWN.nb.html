@@ -1764,24 +1764,77 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVkR0ZpYkdGZmRtRnlhV0ZpYkdWeklEMGdaR0YwWVM1bWNtRnRaU2gyWVhKcFlXSnNaU0E5SUdOdmJHNWhiV1Z6S0VSR0tTd2dkR2x3YnowZ1l5aGNiaUFnY21Wd0tGd2liblZ0WlhKcFkyRnNYQ0lzSURFMEtTeGNiaUFnWENKcGJuUmxaMlZ5WENJc1hHNGdJSEpsY0NoY0ltNTFiV1Z5YVdOaGJGd2lMQ0F4TWlsY2JpQWdYQ0pqYUdGeVhDSmNibHh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbnRhYmxhX3ZhcmlhYmxlcyA9IGRhdGEuZnJhbWUodmFyaWFibGUgPSBjb2xuYW1lcyhERiksIHRpcG89IGMoXG4gIHJlcChcIm51bWVyaWNhbFwiLCAxNCksXG4gIFwiaW50ZWdlclwiLFxuICByZXAoXCJudW1lcmljYWxcIiwgMTIpXG4gIFwiY2hhclwiXG5cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGFfdmFyaWFibGVzID0gZGF0YS5mcmFtZSh2YXJpYWJsZSA9IGNvbG5hbWVzKERGKSwgdGlwbz0gYyhcbiAgcmVwKFwibnVtZXJpY2FsXCIsIDE0KSxcbiAgXCJpbnRlZ2VyXCIsXG4gIHJlcChcIm51bWVyaWNhbFwiLCAxMilcbiAgXCJjaGFyXCJcblxuYGBgIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVkR0ZpYkdGZmRtRnlhV0ZpYkdWeklEMGdaR0YwWVM1bWNtRnRaU2gyWVhKcFlXSnNaU0E5SUdOdmJHNWhiV1Z6S0VSR0tTd2dkR2x3YnowZ1l5aGNiaUFnY21Wd0tGd2liblZ0WlhKcFkyRnNYQ0lzSURFMEtTeGNiaUFnWENKcGJuUmxaMlZ5WENJc1hHNGdJSEpsY0NoY0ltNTFiV1Z5YVdOaGJGd2lMQ0F4TWlrc1hHNGdJRndpWTJoaGNsd2lMRnh1SUNCY0ltNTFiV1Z5YVdOaGJGd2lMRnh1SUNCeVpYQW9YQ0pqYUdGeVhDSXNNaWtwS1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG50YWJsYV92YXJpYWJsZXMgPSBkYXRhLmZyYW1lKHZhcmlhYmxlID0gY29sbmFtZXMoREYpLCB0aXBvPSBjKFxuICByZXAoXCJudW1lcmljYWxcIiwgMTQpLFxuICBcImludGVnZXJcIixcbiAgcmVwKFwibnVtZXJpY2FsXCIsIDEyKSxcbiAgXCJjaGFyXCIsXG4gIFwibnVtZXJpY2FsXCIsXG4gIHJlcChcImNoYXJcIiwyKSkpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGFfdmFyaWFibGVzID0gZGF0YS5mcmFtZSh2YXJpYWJsZSA9IGNvbG5hbWVzKERGKSwgdGlwbz0gYyhcbiAgcmVwKFwibnVtZXJpY2FsXCIsIDE0KSxcbiAgXCJpbnRlZ2VyXCIsXG4gIHJlcChcIm51bWVyaWNhbFwiLCAxMiksXG4gIFwiY2hhclwiLFxuICBcIm51bWVyaWNhbFwiLFxuICByZXAoXCJjaGFyXCIsMikpKVxuYGBgIn0= -->
 <pre class="r"><code>tabla_variables = data.frame(variable = colnames(DF), tipo= c(
   rep(&quot;numerical&quot;, 14),
   &quot;integer&quot;,
-  rep(&quot;numerical&quot;, 12)
-  &quot;char&quot;
+  rep(&quot;numerical&quot;, 12),
+  &quot;char&quot;,
+  &quot;numerical&quot;,
+  rep(&quot;char&quot;,2)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVkbUZ5WDJOaGRHVm5iM0pwWTJGeklEd3RJR052Ykc1aGJXVnpLRVJHS1ZzaGMyRndjR3g1S0VSR0xDQnBjeTV1ZFcxbGNtbGpLVjFjYm5CeWFXNTBLSFpoY2w5allYUmxaMjl5YVdOaGN5bGNibUJnWUNKOSAtLT5cblxuYGBgclxudmFyX2NhdGVnb3JpY2FzIDwtIGNvbG5hbWVzKERGKVshc2FwcGx5KERGLCBpcy5udW1lcmljKV1cbnByaW50KHZhcl9jYXRlZ29yaWNhcylcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudmFyX2NhdGVnb3JpY2FzIDwtIGNvbG5hbWVzKERGKVshc2FwcGx5KERGLCBpcy5udW1lcmljKV1cbnByaW50KHZhcl9jYXRlZ29yaWNhcylcbmBgYCJ9 -->
+<pre class="r"><code>var_categoricas &lt;- colnames(DF)[!sapply(DF, is.numeric)]
+print(var_categoricas)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiZGlhZ25vc2lzXCIgXCJnZW5kZXJcIiAgICBcIkdlbm90eXBlXCIgXG4ifQ== -->
+<pre><code>[1] &quot;diagnosis&quot; &quot;gender&quot;    &quot;Genotype&quot; </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVjM1Z0YldGeWVTaEVSbHNzZEdGaWJHRmZkbUZ5YVdGaWJHVnpKSFpoY21saFlteGxXM1JoWW14aFgzWmhjbWxoWW14bGN5UjBhWEJ2SUQwOUlGd2liblZ0WlhKcFkyRnNYQ0pkWFNsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5zdW1tYXJ5KERGWyx0YWJsYV92YXJpYWJsZXMkdmFyaWFibGVbdGFibGFfdmFyaWFibGVzJHRpcG8gPT0gXCJudW1lcmljYWxcIl1dKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShERlssdGFibGFfdmFyaWFibGVzJHZhcmlhYmxlW3RhYmxhX3ZhcmlhYmxlcyR0aXBvID09IFwibnVtZXJpY2FsXCJdXSlcbmBgYCJ9 -->
+<pre class="r"><code>summary(DF[,tabla_variables$variable[tabla_variables$tipo == &quot;numerical&quot;]])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgZW4gYFsuZGF0YS5mcmFtZWAoREYsICwgdGFibGFfdmFyaWFibGVzJHZhcmlhYmxlW3RhYmxhX3ZhcmlhYmxlcyR0aXBvID09IDogXG4gIGNvbHVtbmFzIG5vIGRlZmluaWRhcyBzZWxlY2Npb25hZGFzXG4ifQ== -->
+<pre><code>Error en `[.data.frame`(DF, , tabla_variables$variable[tabla_variables$tipo == : 
+  columnas no definidas seleccionadas</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVSRVp6ZFdJeUlEMGdjM1ZpYzJWMEtFUkdMQ0J6Wld4bFkzUWdQU0F0WXloRFowRXBLVnh1WEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5ERnN1YjIgPSBzdWJzZXQoREYsIHNlbGVjdCA9IC1jKENnQSkpXG5cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuREZzdWIyID0gc3Vic2V0KERGLCBzZWxlY3QgPSAtYyhDZ0EpKVxuXG5gYGAifQ== -->
+<pre class="r"><code>DFsub2 = subset(DF, select = -c(CgA))
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IHVuZXhwZWN0ZWQgc3RyaW5nIGNvbnN0YW50IGluOlxuXCIgIHJlcChcIm51bWVyaWNhbFwiLCAxMilcbiAgXCJjaGFyXCJcIlxuIn0= -->
-<pre><code>Error: unexpected string constant in:
-&quot;  rep(&quot;numerical&quot;, 12)
-  &quot;char&quot;&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgZW4gZXZhbChzdWJzdGl0dXRlKHNlbGVjdCksIG5sLCBwYXJlbnQuZnJhbWUoKSk6IFxuICBvYmpldG8gJ0NnQScgbm8gZW5jb250cmFkb1xuIn0= -->
+<pre><code>Error en eval(substitute(select), nl, parent.frame()): 
+  objeto &#39;CgA&#39; no encontrado</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVSRVlrWjJWdVpHVnlJRDBnWm1GamRHOXlLRVJHSkdScFlXZHViM05wY3lsY2JrUkdKR1JwWVdkdWIzTnBjeUE5SUdaaFkzUnZjaWhFUmlSa2FXRm5ibTl6YVhNcFhHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuREYkZ2VuZGVyID0gZmFjdG9yKERGJGRpYWdub3NpcylcbkRGJGRpYWdub3NpcyA9IGZhY3RvcihERiRkaWFnbm9zaXMpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuREYkZ2VuZGVyID0gZmFjdG9yKERGJGRpYWdub3NpcylcbkRGJGRpYWdub3NpcyA9IGZhY3RvcihERiRkaWFnbm9zaXMpXG5gYGAifQ== -->
+<pre class="r"><code>DF$gender = factor(DF$diagnosis)
+DF$diagnosis = factor(DF$diagnosis)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZbTk0Y0d4dmRDaEVSbk4xWWpKYkxDQjBZV0pzWVY5MllYSnBZV0pzWlhNa2RtRnlhV0ZpYkdWYmRHRmliR0ZmZG1GeWFXRmliR1Z6SkhScGNHOGdQVDBnWENKdWRXMWxjbWxqWVd4Y0lsMWRMQ0JzWVhNZ1BTQXlLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmJveHBsb3QoREZzdWIyWywgdGFibGFfdmFyaWFibGVzJHZhcmlhYmxlW3RhYmxhX3ZhcmlhYmxlcyR0aXBvID09IFwibnVtZXJpY2FsXCJdXSwgbGFzID0gMilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm94cGxvdChERnN1YjJbLCB0YWJsYV92YXJpYWJsZXMkdmFyaWFibGVbdGFibGFfdmFyaWFibGVzJHRpcG8gPT0gXCJudW1lcmljYWxcIl1dLCBsYXMgPSAyKVxuYGBgIn0= -->
+<pre class="r"><code>boxplot(DFsub2[, tabla_variables$variable[tabla_variables$tipo == &quot;numerical&quot;]], las = 2)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBgYHtSIGNhcmdhfQ0KREYgPSByZWFkLnRhYmxlKCIwMUFfQWx6aGVpbWVyRGlzZWFzZS50eHQiLCBoZWFkZXIgPSBUUlVFLCBzZXAgPSAiXHQiLCBkZWMgPSAiLiIsIGNoZWNrLm5hbWVzID0gRkFMU0UpDQoNCmBgYGANCg0KYGBgYHtSIHZhcmlhYmxlc30NCnRhYmxhX3ZhcmlhYmxlcyA9IGRhdGEuZnJhbWUodmFyaWFibGUgPSBjb2xuYW1lcyhERiksIHRpcG89IGMoDQogIHJlcCgibnVtZXJpY2FsIiwgMTQpLA0KICAiaW50ZWdlciIsDQogIHJlcCgibnVtZXJpY2FsIiwgMTIpLA0KICAiY2hhciIsDQogICJudW1lcmljYWwiLA0KICByZXAoImNoYXIiLDIpKSkNCmBgYGA=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBgYHtSIGNhcmdhfQ0KREYgPSByZWFkLnRhYmxlKCIwMUFfQWx6aGVpbWVyRGlzZWFzZS50eHQiLCBoZWFkZXIgPSBUUlVFLCBzZXAgPSAiXHQiLCBkZWMgPSAiLiIsIGNoZWNrLm5hbWVzID0gRkFMU0UpDQoNCmBgYGANCg0KYGBgYHtSIHZhcmlhYmxlc30NCnRhYmxhX3ZhcmlhYmxlcyA9IGRhdGEuZnJhbWUodmFyaWFibGUgPSBjb2xuYW1lcyhERiksIHRpcG89IGMoDQogIHJlcCgibnVtZXJpY2FsIiwgMTQpLA0KICAiaW50ZWdlciIsDQogIHJlcCgibnVtZXJpY2FsIiwgMTIpLA0KICAiY2hhciIsDQogICJudW1lcmljYWwiLA0KICByZXAoImNoYXIiLDIpKSkNCmBgYGANCg0KYGBgYHtSIGxpbXBpZXphfQ0KdmFyX2NhdGVnb3JpY2FzIDwtIGNvbG5hbWVzKERGKVshc2FwcGx5KERGLCBpcy5udW1lcmljKV0NCnByaW50KHZhcl9jYXRlZ29yaWNhcykNCg0KIyNFREFEIFNBTEUgQUxHTyBSQVJPLCBTQUxFTiBUT0RPUyBDT04gVkFMT1IgMCw5OCAsIEhBWSBRVUUgVEVORVIgQ1VJREFETyBDT04gRVNUQSBWQVJJQUJMRSBQT1JRVUUgSUdVQUwgU0VTR0EgTE9TIFJFU1VMVEFET1MNCmBgYGANCiAgDQpgYGBge3IgQ1RFUywgRUNITyA9IFRSVUV9DQpzdW1tYXJ5KERGWyx0YWJsYV92YXJpYWJsZXMkdmFyaWFibGVbdGFibGFfdmFyaWFibGVzJHRpcG8gPT0gIm51bWVyaWNhbCJdXSkNCg0KbXlTRCA9IGFwcGx5KERGWywgdGFibGFfdmFyaWFibGVzJHZhcmlhYmxlW3RhYmxhX3ZhcmlhYmxlcyR0aXBvID09ICJudW1lcmljYWwiXV0sIDIsIHNkKQ0KDQpteU1VID0gY29sTWVhbnMoREZbLHRhYmxhX3ZhcmlhYmxlcyR2YXJpYWJsZVt0YWJsYV92YXJpYWJsZXMkdGlwbyA9PSAibnVtZXJpY2FsIl1dKQ0KbXlDViA9IG15U0QvbXlNVQ0Kc29ydChteUNWKQ0KDQphcHBseShERlssdGFibGFfdmFyaWFibGVzJHZhcmlhYmxlW3RhYmxhX3ZhcmlhYmxlcyR0aXBvID09ICJiaW5hcnkiXV0sIDIsIHRhYmxlLCB1c2VOQSA9ICJpIikNCg0KYXBwbHkoREZbLHRhYmxhX3ZhcmlhYmxlcyR2YXJpYWJsZVt0YWJsYV92YXJpYWJsZXMkdGlwbyA9PSAiY2F0ZWdvcmljYWwiXV0sIDIsIHRhYmxlLCB1c2VOQSA9ICJpIikNCg0KYXBwbHkoREZbLHRhYmxhX3ZhcmlhYmxlcyR2YXJpYWJsZVt0YWJsYV92YXJpYWJsZXMkdGlwbyA9PSAiY2F0ZWdvcmljYWwiXV0sIDIsDQogICAgICBmdW5jdGlvbiAoeCkgcm91bmQoMTAwKnRhYmxlKHgpL3N1bSh0YWJsZSh4KSksIDIpKQ0KDQoNCg0KYGBgYA0KYGBgYHtSIFNVQlNFVH0NCkRGc3ViMiA9IHN1YnNldChERiwgc2VsZWN0ID0gLWMoQ2dBKSkNCkRGID0gc3Vic2V0KERGLCBzZWxlY3QgPSAtYyhDZ0EpKQ0KdGFibGFfdmFyaWFibGVzID0gc3Vic2V0KHRhYmxhX3ZhcmlhYmxlcywgdmFyaWFibGUgIT0gIkNnQSIpDQpgYGBgDQoNCmBgYGB7ciBmYWN0b3J9DQpERiRnZW5kZXIgPSBmYWN0b3IoREYkZGlhZ25vc2lzKQ0KREYkZGlhZ25vc2lzID0gZmFjdG9yKERGJGRpYWdub3NpcykNCmBgYGANCg0KYGBgYHtyIGFub21hbG8sIGVjaG8gPSBUUlVFfQ0KYm94cGxvdChERnN1YjJbLCB0YWJsYV92YXJpYWJsZXMkdmFyaWFibGVbdGFibGFfdmFyaWFibGVzJHRpcG8gPT0gIm51bWVyaWNhbCJdXSwgbGFzID0gMikNCmBgYGANCg==</div>
 
 
 

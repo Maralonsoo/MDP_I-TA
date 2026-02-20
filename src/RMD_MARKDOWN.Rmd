@@ -16,3 +16,44 @@ tabla_variables = data.frame(variable = colnames(DF), tipo= c(
   "numerical",
   rep("char",2)))
 ````
+
+````{R limpieza}
+var_categoricas <- colnames(DF)[!sapply(DF, is.numeric)]
+print(var_categoricas)
+
+##EDAD SALE ALGO RARO, SALEN TODOS CON VALOR 0,98 , HAY QUE TENER CUIDADO CON ESTA VARIABLE PORQUE IGUAL SESGA LOS RESULTADOS
+````
+  
+````{r CTES, ECHO = TRUE}
+summary(DF[,tabla_variables$variable[tabla_variables$tipo == "numerical"]])
+
+mySD = apply(DF[, tabla_variables$variable[tabla_variables$tipo == "numerical"]], 2, sd)
+
+myMU = colMeans(DF[,tabla_variables$variable[tabla_variables$tipo == "numerical"]])
+myCV = mySD/myMU
+sort(myCV)
+
+apply(DF[,tabla_variables$variable[tabla_variables$tipo == "binary"]], 2, table, useNA = "i")
+
+apply(DF[,tabla_variables$variable[tabla_variables$tipo == "categorical"]], 2, table, useNA = "i")
+
+apply(DF[,tabla_variables$variable[tabla_variables$tipo == "categorical"]], 2,
+      function (x) round(100*table(x)/sum(table(x)), 2))
+
+
+
+````
+````{R SUBSET}
+DFsub2 = subset(DF, select = -c(CgA))
+DF = subset(DF, select = -c(CgA))
+tabla_variables = subset(tabla_variables, variable != "CgA")
+````
+
+````{r factor}
+DF$gender = factor(DF$diagnosis)
+DF$diagnosis = factor(DF$diagnosis)
+````
+
+````{r anomalo, echo = TRUE}
+boxplot(DFsub2[, tabla_variables$variable[tabla_variables$tipo == "numerical"]], las = 2)
+````
