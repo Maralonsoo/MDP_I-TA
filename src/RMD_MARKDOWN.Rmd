@@ -44,16 +44,20 @@ apply(DF[,tabla_variables$variable[tabla_variables$tipo == "categorical"]], 2,
 
 ````
 ````{R SUBSET}
-DFsub2 = subset(DF, select = -c(CgA))
-DF = subset(DF, select = -c(CgA))
-tabla_variables = subset(tabla_variables, variable != "CgA")
+library(dplyr)
+DFNum <- DF[,tabla_variables$variable[tabla_variables$tipo == "numerical"]]
+solo_positivos <- DFNum %>% 
+  mutate(across(everything(), ~ ifelse(. > 0, ., NA)))
+
+# Para negativos: mantiene el valor si es < 0, si no, pone NA
+solo_negativos <- DFNum %>% 
+  mutate(across(everything(), ~ ifelse(. < 0, ., NA)))
 ````
 
 ````{r factor}
-DF$gender = factor(DF$diagnosis)
-DF$diagnosis = factor(DF$diagnosis)
+
 ````
 
 ````{r anomalo, echo = TRUE}
-boxplot(DFsub2[, tabla_variables$variable[tabla_variables$tipo == "numerical"]], las = 2)
+boxplot(DF[, tabla_variables$variable[tabla_variables$tipo == "numerical"]], las = 2)
 ````
