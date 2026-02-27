@@ -19,8 +19,8 @@ tabla_variables = data.frame(variable = colnames(DF), tipo= c(
   rep("char",2)))
 ````
 
-La cantidad actual de filas u observaciones de la BBDD es actualmente `r nrow(alzh)`
-y la cantidad actual de columnas o variables `r ncol(alzh)`
+La cantidad actual de filas u observaciones de la BBDD es actualmente `r nrow(DF)`
+y la cantidad actual de columnas o variables `r ncol(DF)`
 
 ````{R limpieza}
 var_categoricas <- colnames(DF)[!sapply(DF, is.numeric)]
@@ -59,37 +59,11 @@ DF = subset(DF, select = -c(CgA))
 tabla_variables = subset(tabla_variables, variable != "CgA")
 ````
 
-Para la variable age, tenemos que todos los valores de age son iguales entre sí. Creemos que se ha realizado una normalización de los datos de 0 a 1, lo que ha resultado que todos los valores estén entre 0.98 y 0.99.
 ````{r factor}
-# Ahora pasamos a las variables categóricas.
-# Categóricas binarias
-# Para estas solamente hace falta pasarlo al tipo de datos factor, ya que este es internamente representado por RStudio como 0 y 1
 DF$gender = factor(DF$gender)
 DF$diagnosis = factor(DF$diagnosis)
-DF$diagnosis
-View(DF)
-summary(DF$gender)
-summary(DF$diagnosis)
 ````
-
-Tras realizar el summary de gender y diagnosis, hemos podido observar que, en ambos casos, no tenemos distribuciones de la variable categórica en la cual todos o casi todos los individuos presentan la misma variante de la variable, por lo que ambas se mantendrán en el análisis.
-
-Pasando ahora con las categóricas no binarias:
-```{r}
-categoricas = DF[,tabla_variables$variable[tabla_variables$tipo == "categorical"]]
-categoricas
-```
-Ocurre que solamente existe una variable categórica no dicotómica en nuestros datos, que es Genotype
-```{r}
-table(categoricas)
-```
-Solamente existen 6 variantes de esta variable, aunque podemos observar en la tabla que la gran mayoría de los casos se agrupan en 3 de los genotipos que hay (308 de 331 que hay), por lo que se podría pensar que interesaría no tomar en cuenta (que no eliminar) los grupos de fenotipos que no poseen ni un 5 % del total de los casos. Estos serían:
-E2E2, E2E4, E4E4
-
-
 
 ````{r anomalo, echo = TRUE}
 boxplot(DFsub2[, tabla_variables$variable[tabla_variables$tipo == "numerical"]], las = 2)
 ````
-
-
