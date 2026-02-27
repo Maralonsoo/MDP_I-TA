@@ -1,0 +1,9 @@
+---
+title: "Practica4"
+output: html_document
+---
+
+```{r}
+install.packages("arules")
+```
+

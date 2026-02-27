@@ -93,3 +93,8 @@ boxplot(DFsub2[, tabla_variables$variable[tabla_variables$tipo == "numerical"]],
 ````
 
 
+```{r}
+
+```
+
+
