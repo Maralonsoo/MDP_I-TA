@@ -1,0 +1,46 @@
+---
+title: "Practica5"
+output: html_document
+---
+```{r}
+library("knitr")
+library("PLSandO")
+library("gridExtra")
+```
+
+```{r}
+#Lo primero que vamos a hacer es cargar nuestro dataset y hacer el preprocesado de los datos
+DF = read.table("~/Desktop/Uni/IV/Mdp I/Mdp_trabajo/Trabajo_mdp I/MDP_I-TA/src/01A_AlzheimerDisease.txt", header = TRUE, sep = "\t", dec = ".", check.names = FALSE)
+
+processedDF = as.data.frame(Preparing(DF, includeFactors = TRUE, CVfilter = 0.01, excludeNA = 0.2)[1])
+processedDF
+
+```
+
+```{r}
+#Aplicamos el pca a el dataframe procesado
+DFpca = pca(processedDF, ncomp=NULL, algo = "nipals", scaling = "standard")
+
+DFpca
+```
+```{r}
+#Ahora vamos a ver que PCs podemos considerar, medinte los diferentes métodos
+
+pcaPlot(DFpca, type = 'scree')
+```
+```{r}
+K = 10
+kable(DFpca$explVar[1:K,])
+```
+```{r}
+p1 = pcaPlot(DFpca, type = 'scores', comp = 1:2, colBy = NULL, labels = TRUE,
+             labelTop = 0.1, repel = TRUE)
+p2 = pcaPlot(DFpca, type = 'scores', comp = 3:4, colBy = NULL, labels = TRUE,
+             labelTop = 0.1, repel = TRUE)
+p3 = pcaPlot(DFpca, type = 'corr', comp = 1:2, colBy = "contrib", 
+             labels = TRUE, repel = TRUE, col = "hot")
+p4 = pcaPlot(DFpca, type = 'corr', comp = 3:4, colBy = "contrib", 
+             labels = TRUE, repel = TRUE, col = "hot")
+p3
+```
+

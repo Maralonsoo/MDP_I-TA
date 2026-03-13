@@ -1,0 +1,189 @@
+---
+title: "P5_PCA"
+author: "Franco"
+date: "2026-03-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library("PLSandO")
+library("knitr")
+library("gridExtra")
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+DF = read.table("~/Desktop/Uni/IV/Mdp I/Mdp_trabajo/Trabajo_mdp I/MDP_I-TA/src/01A_AlzheimerDisease.txt", header = TRUE, sep = "\t", dec = ".", check.names = FALSE)
+processedDF = as.data.frame(Preparing(DF,includeFactors = TRUE,CVfilter=0.01,excludeNA = 0.2)[1])
+mipca = pca(processedDF, ncomp = NULL,algo = "nipals", scaling = "standard")
+processedDF
+```
+
+```{r, fig.width=4, fig.height=4}
+pcaPlot(mipca, type = 'scree')
+K = 10
+kable(mipca$explVar[1:K,])
+```
+
+```{r, fig.height=8, fig.width=9}
+p1 = pcaPlot(mipca, type = 'scores', comp = 1:2, colBy = NULL, labels = TRUE,
+             labelTop = 0.1, repel = TRUE)
+p2 = pcaPlot(mipca, type = 'scores', comp = 3:4, colBy = NULL, labels = TRUE,
+             labelTop = 0.1, repel = TRUE)
+p3 = pcaPlot(mipca, type = 'corr', comp = 1:2, colBy = "contrib", 
+             labels = TRUE, repel = TRUE, col = "hot")
+p4 = pcaPlot(mipca, type = 'corr', comp = 3:4, colBy = "contrib", 
+             labels = TRUE, repel = TRUE, col = "hot")
+p5 = pcaPlot(mipca, type = 'scores', comp = 5:6, colBy = NULL, labels = TRUE,
+            labelTop = 0.1, repel = TRUE)
+p6 = pcaPlot(mipca, type = 'scores', comp = 7:8, colBy = NULL, labels = TRUE,
+             labelTop = 0.1, repel = TRUE)
+p7 = pcaPlot(mipca, type = 'corr', comp = 5:6, colBy = "contrib", 
+             labels = TRUE, repel = TRUE, col = "hot")
+p8 = pcaPlot(mipca, type = 'corr', comp = 7:8, colBy = "contrib", 
+             labels = TRUE, repel = TRUE, col = "hot")
+#grid.arrange(p1,p2,p3,p4,p5,p6,p7,p8, nrow = 4)
+#Nos quedamos unicamente con las 4 primeras componentes porque son las que explican diagnosis
+p7
+```
+
+```{r}
+K = 4
+mipca = pca(processedDF, ncomp = K,
+            algo = "nipals", scaling = "standard")
+```
+
+```{r}
+par(mfrow = c(1,2))
+anomSCR95 = pcaOutliers(mipca, method = "RSS", conf = 95)
+anomSCR99 = pcaOutliers(mipca, method = "RSS", conf = 99)
+
+moderados = sort(anomSCR95$RSS[anomSCR95$ModerateOutliers], decreasing = TRUE)
+moderados
+par(mfrow = c(1,3))
+outlierContrib(mipca, outliers = anomSCR95, specificObs = names(moderados[1:3]))
+```
+
+```{r}
+#Como hemos visto, encontramos 3 moderate otliers, y como podemos ver en los graficos las variables que podemos ver que mas afectan son el genotipo E2E2 y el E2E4, además del CgA. Tambien podemos ver que en r19 el Il_5 esta un poco bajo.
+
+#De momento no vamos a eliminar estas variables, esto es porque es normal que el modelo detecte estos 3 outliers como moderados dado que en nuestra base de datos hay muy pocos como este, es variabilidad biologica normal
+
+#Lo primero que voy a hacer es investigar porque ocurre esto.
+boxplot(mipca$X, las = 2, main = "Datos escalados")
+kable(round(mipca$X[names(moderados[1:3]),],2))
+
+```
+```{r}
+#Ahora vamos a detectar anómalos severos con el método T2-Hotelling
+par(mfrow = c(1,2))
+anomSev95 = pcaOutliers(mipca, method = "T2", conf = 95)
+anomSev99 = pcaOutliers(mipca, method = "T2", conf = 99)
+outlierContrib(mipca, outliers = anomSev99)
+```
+
+```{r}
+#Bien, podemos encontrar una gran catidad de observaciones anómalas severas, pero hay algo raro, el eje y esta en magnitudes totalmente absurdas, esto puede ser porque antes hemos hecho scaling = "standard", esto significa que obligamos a R a restar a media y dividir por la desviación típica, lo que pasa es que en variables dummy, como su varianza es casi nula, al dividir un numeor cerca de cero, se disparan los valores, entonces, que vamos a hacer? Como el problema son los genotipos y como hemos dicho anteriormente no se consideran variables problemáticas dado que es simple variabilidad genética, vamos a volver a hacer un PCA sin incluir los factores.
+
+# 1. Volvemos a preparar los datos, pero esta vez EXCLUIMOS los factores del cálculo
+# Cambiamos includeFactors a FALSE
+processedDF_numericas = as.data.frame(Preparing(DF, 
+                                                includeFactors = FALSE, 
+                                                CVfilter = 0.01, 
+                                                excludeNA = 0.2)[1])
+
+# 2. Calculamos el PCA solo con las variables continuas (biomarcadores, proteínas, etc.)
+K = 4
+mipca_corregido = pca(processedDF_numericas, ncomp = K, algo = "nipals", scaling = "standard")
+
+# 3. Volvemos a buscar los outliers severos (T2 de Hotelling)
+par(mfrow = c(1,2))
+anomSev95_corregido = pcaOutliers(mipca_corregido, method = "T2", conf = 95)
+anomSev99_corregido = pcaOutliers(mipca_corregido, method = "T2", conf = 99)
+
+# 4. Graficamos las contribuciones de los outliers severos al 99%
+outlierContrib(mipca_corregido, outliers = anomSev99_corregido)
+```
+```{r}
+#Perfecto, ahora solo tenemos 4 outliers moderados con las variables que si que pueden ser problemáticas. Estas observaciones extremas no tienen por que ser malas, son pacientes en un estadio muy avanzado de la enfermedad o algo por el estilo, es normal así que lo que vmaos a hacer es una transformación de estas variables
+
+# 1. Cogemos TODOS los nombres de las columnas que hay en tu dataset limpio
+var2transf = colnames(processedDF_numericas)
+
+# 2. Bucle de transformación mejorado
+for (v in var2transf) {
+  min_val = min(processedDF_numericas[,v], na.rm = TRUE)
+  
+  if (min_val == 0) {
+    processedDF_numericas[,v] = log(processedDF_numericas[,v] + 1)
+  } else if (min_val > 0) {
+    processedDF_numericas[,v] = log(processedDF_numericas[,v])
+  } else if (min_val < 0) {
+    processedDF_numericas[,v] = log(processedDF_numericas[,v] - min_val + 1)
+  }
+}
+
+# 3. Calculamos el PCA de nuevo con los datos ya transformados al logaritmo
+K = 4
+mipca_log = pca(processedDF_numericas, ncomp = K, algo = "nipals", scaling = "standard")
+
+# 4. Comprobamos los outliers severos (T2)
+par(mfrow = c(1,2))
+anomSev95_log = pcaOutliers(mipca_log, method = "T2", conf = 95)
+anomSev99_log = pcaOutliers(mipca_log, method = "T2", conf = 99)
+
+outlierContrib(mipca_log, outliers = anomSev99_log)
+```
+
+```{r}
+#Ahora salen algun que otro paciente anómalo extremos mas pero no hay problema, se corresponde con un paciente en un estadio de la enfermedad concreto, las variables que se consideran anómalas son biomarcadores y estos son pacientes que, por ejemplo han podido responder de una forma concreta al tratamiento o algo por el estilo
+
+#Ahora vamos a hacer comprobaciones ultimas
+
+# --- 4.1 Interpretación de las Observaciones (Gráficos de Scores) ---
+
+# 1. Filtramos los diagnósticos para que cuadren exactamente con los 326 pacientes del PCA
+diagnosticos_limpios = DF[rownames(processedDF_numericas), "diagnosis"] 
+
+# 2. Ahora sí, coloreamos usando 'diagnosticos_limpios'
+p_scores12 = pcaPlot(mipca_log, type = 'scores', comp = 1:2, 
+                     colBy = diagnosticos_limpios, 
+                     labels = TRUE, labelTop = 0.1, repel = TRUE)
+
+p_scores34 = pcaPlot(mipca_log, type = 'scores', comp = 3:4, 
+                     colBy = diagnosticos_limpios, 
+                     labels = TRUE, labelTop = 0.1, repel = TRUE)
+
+# Mostramos los gráficos
+grid.arrange(p_scores12, p_scores34, nrow = 1)
+
+
+# --- 4.2 Interpretación de las Variables (Gráficos de Correlaciones) ---
+# Vemos qué variables tiran más de cada componente (coloreadas por contribución "hot")
+
+p_corr12 = pcaPlot(mipca_log, type = 'corr', comp = 1:2, 
+                   colBy = "contrib", col = "hot", 
+                   labels = TRUE, repel = TRUE)
+
+p_corr34 = pcaPlot(mipca_log, type = 'corr', comp = 3:4, 
+                   colBy = "contrib", col = "hot", 
+                   labels = TRUE, repel = TRUE)
+
+# Mostramos los gráficos
+grid.arrange(p_corr12, p_corr34, nrow = 1)
+
+
+# --- 4.3 Análisis Conjunto (Biplot) Manual ---
+
+# 1. Extraemos las coordenadas de la Componente 1 y 2
+mis_scores = mipca_log$scores[, 1:2]
+mis_loadings = mipca_log$loadings[, 1:2]
+
+# 2. Forzamos el biplot nativo de R pasándole las dos matrices a la vez
+biplot(mis_scores, mis_loadings, 
+       cex = c(0.5, 0.8), # 0.5 para pacientes (pequeño) y 0.8 para variables (más grande)
+       main = "Biplot Componentes 1 y 2",
+       col = c("darkgray", "red")) # Pacientes en gris, variables en rojo
+```
+

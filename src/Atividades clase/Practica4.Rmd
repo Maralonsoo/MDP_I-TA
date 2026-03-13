@@ -3,7 +3,28 @@ title: "Practica4"
 output: html_document
 ---
 
+
 ```{r}
-install.packages("arules")
+#Descargando los paquetes necesarios
+library(arules)
+```
+
+```{r}
+data(Groceries)
+class(Groceries)
+summary(Groceries)
+```
+```{r}
+#Ploteo de gráfica
+itemFrequencyPlot(Groceries, topN = 20, type = "absolute")
+
+```
+```{r}
+#Viendo como era la database antes
+ddd = as.matrix(Groceries@data)
+dim(ddd)
+```
+```{r}
+
 ```
 
